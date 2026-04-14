@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+const PUBLIC_BASE = import.meta.env.BASE_URL || '/';
 
 const featuredCollections = [
   {
@@ -73,9 +74,9 @@ function App() {
         <nav className="topbar">
           <div className="brand">Visionary Studio</div>
           <div className="nav-links">
-            <a href="#workflow">Workflow</a>
-            <a href="#generator">Generator</a>
-            <a href="#library">Library</a>
+            <a href={`${PUBLIC_BASE}#workflow`}>Workflow</a>
+            <a href={`${PUBLIC_BASE}#generator`}>Generator</a>
+            <a href={`${PUBLIC_BASE}#library`}>Library</a>
           </div>
         </nav>
 
@@ -88,8 +89,8 @@ function App() {
               variation generation, evaluation, and reward-driven learning.
             </p>
             <div className="hero-actions">
-              <a className="primary-btn" href="#generator">Start creating</a>
-              <a className="ghost-btn" href="#workflow">See workflow</a>
+              <a className="primary-btn" href={`${PUBLIC_BASE}#generator`}>Start creating</a>
+              <a className="ghost-btn" href={`${PUBLIC_BASE}#workflow`}>See workflow</a>
             </div>
           </div>
 
