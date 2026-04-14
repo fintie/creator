@@ -1,0 +1,397 @@
+:root {
+  font-family: 'Inter', sans-serif;
+  color: #f5f1ea;
+  background: #0c0c0f;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top, rgba(199, 144, 77, 0.18), transparent 30%),
+    linear-gradient(180deg, #111114 0%, #09090b 100%);
+  color: #f5f1ea;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.page-shell {
+  min-height: 100vh;
+}
+
+.hero,
+main {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+}
+
+.brand {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  color: rgba(245, 241, 234, 0.7);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
+  align-items: center;
+  padding: 48px 0 64px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  color: #c7904d;
+  margin-bottom: 12px;
+}
+
+.hero-copy h1,
+.workflow-copy h2,
+.generator-card h2,
+.result-card h2,
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.hero-text {
+  max-width: 620px;
+  color: rgba(245, 241, 234, 0.76);
+  font-size: 1.05rem;
+  margin: 20px 0 28px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+}
+
+.primary-btn,
+.ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 14px 24px;
+  border: 1px solid transparent;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #f4ede3;
+  color: #111114;
+  font-weight: 700;
+}
+
+.ghost-btn {
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #f5f1ea;
+}
+
+.primary-btn:hover,
+.ghost-btn:hover {
+  transform: translateY(-1px);
+}
+
+.hero-card,
+.feature-card,
+.workflow-panel,
+.generator-card,
+.result-card,
+.library-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(18px);
+  border-radius: 28px;
+}
+
+.hero-card {
+  padding: 28px;
+}
+
+.status-pill {
+  display: inline-flex;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(199, 144, 77, 0.14);
+  color: #f4d1a6;
+  margin-bottom: 22px;
+}
+
+.preview-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.preview-card {
+  padding: 22px;
+  border-radius: 22px;
+  min-height: 110px;
+}
+
+.preview-card span {
+  display: block;
+  color: rgba(245, 241, 234, 0.68);
+  margin-bottom: 10px;
+}
+
+.preview-card strong {
+  font-size: 1.25rem;
+}
+
+.preview-card.dark {
+  background: linear-gradient(135deg, #18181d 0%, #111114 100%);
+}
+
+.preview-card.accent {
+  background: linear-gradient(135deg, #8f5a21 0%, #c7904d 100%);
+}
+
+.preview-card.light {
+  background: linear-gradient(135deg, #f4ede3 0%, #d6c3a8 100%);
+  color: #111114;
+}
+
+.preview-card.light span {
+  color: rgba(17, 17, 20, 0.65);
+}
+
+.preview-arrow {
+  text-align: center;
+  color: rgba(245, 241, 234, 0.5);
+}
+
+.feature-strip,
+.generator-section,
+.library-grid {
+  display: grid;
+  gap: 22px;
+}
+
+.feature-strip {
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 22px;
+}
+
+.feature-card {
+  padding: 24px;
+}
+
+.feature-card h3,
+.library-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.feature-card p,
+.workflow-copy ol,
+.library-copy p,
+.result-meta p,
+.result-meta li,
+.placeholder-card {
+  color: rgba(245, 241, 234, 0.74);
+}
+
+.workflow-panel {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: 24px;
+  padding: 32px;
+  margin-bottom: 22px;
+}
+
+.workflow-copy h2,
+.generator-card h2,
+.result-card h2,
+.section-heading h2 {
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+}
+
+.workflow-copy ol {
+  padding-left: 20px;
+}
+
+.workflow-visual {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.workflow-visual div {
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  text-align: center;
+  font-weight: 600;
+}
+
+.generator-section {
+  grid-template-columns: 0.9fr 1.1fr;
+  margin-bottom: 28px;
+}
+
+.generator-card,
+.result-card {
+  padding: 28px;
+}
+
+label {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 18px;
+  color: rgba(245, 241, 234, 0.88);
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f5f1ea;
+  padding: 14px 16px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.full {
+  width: 100%;
+}
+
+.error-text {
+  color: #ff9e9e;
+  margin-top: 12px;
+}
+
+.placeholder-card {
+  min-height: 320px;
+  border-radius: 22px;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 28px;
+}
+
+.result-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.result-grid video {
+  width: 100%;
+  border-radius: 20px;
+  background: #000;
+}
+
+.result-meta ul {
+  padding-left: 18px;
+}
+
+.section-heading {
+  margin-bottom: 18px;
+}
+
+.library-grid {
+  grid-template-columns: repeat(3, 1fr);
+  padding-bottom: 48px;
+}
+
+.library-card {
+  overflow: hidden;
+}
+
+.library-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+.library-copy {
+  padding: 18px;
+}
+
+.library-title-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+}
+
+.status {
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+.status.ready {
+  background: rgba(100, 211, 140, 0.16);
+  color: #9bf3bd;
+}
+
+.status.processing {
+  background: rgba(199, 144, 77, 0.18);
+  color: #f0c089;
+}
+
+@media (max-width: 960px) {
+  .hero-grid,
+  .workflow-panel,
+  .generator-section,
+  .feature-strip,
+  .library-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar,
+  .nav-links,
+  .hero-actions,
+  .library-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero,
+  main {
+    width: min(100% - 32px, 1200px);
+  }
+}
