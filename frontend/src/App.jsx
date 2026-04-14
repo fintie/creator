@@ -1,24 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
 const PUBLIC_BASE = import.meta.env.BASE_URL || '/';
 
 const apiUrl = (path) => `${API_BASE}${path}`;
 
+const cinematicStats = [
+  { value: '4K-ready', label: 'export workflow' },
+  { value: '< 2 min', label: 'first variation preview' },
+  { value: 'AI + human', label: 'review loop' },
+];
+
 const featuredCollections = [
   {
-    title: 'Agent orchestration',
-    text: 'Route every prompt through a smart creative controller that picks the best generation path for each brief.',
+    title: 'Fashion launch',
+    tag: 'Luxury',
+    text: 'Golden-hour movement, tactile close-ups, and refined pacing for premium brand drops.',
   },
   {
-    title: 'Video generation pipeline',
-    text: 'Blend Seedance2.0 outputs with FFmpeg transformations for fast concepting and polished previews.',
+    title: 'Travel trailer',
+    tag: 'Adventure',
+    text: 'Fast scenic cuts, atmospheric grading, and motion-led edits built for destination storytelling.',
   },
   {
-    title: 'Evaluation loop',
-    text: 'Score each cut with AI and human review, then feed stronger results back into the reward loop.',
+    title: 'Night city reel',
+    tag: 'Editorial',
+    text: 'Neon contrast, elegant speed ramps, and sleek camera language for modern campaign films.',
   },
 ];
+
+const workflowStages = [
+  'Upload a source clip or campaign draft',
+  'Route the brief through the orchestration layer',
+  'Generate multiple cinematic directions',
+  'Score quality, pacing, and brief alignment',
+  'Refine winning cuts and write the final memo',
+];
+
+const styleOptions = ['Cinematic', 'Editorial', 'High Contrast', 'Dreamscape'];
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -35,6 +54,18 @@ function App() {
       .then(setLibrary)
       .catch(() => setLibrary([]));
   }, []);
+
+  const libraryItems = useMemo(() => {
+    if (library.length > 0) return library;
+
+    return featuredCollections.map((item, index) => ({
+      id: `sample-${index}`,
+      title: item.title,
+      prompt: item.text,
+      status: 'ready',
+      original_url: `https://images.unsplash.com/photo-${['1515886657613-9f3515b0c78f','1492691527719-9d1e07e534b4','1500530855697-b586d89ba3ee'][index]}?auto=format&fit=crop&w=1200&q=80`,
+    }));
+  }, [library]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -74,8 +105,15 @@ function App() {
     <div className="page-shell">
       <header className="hero">
         <nav className="topbar">
-          <div className="brand">Visionary Studio</div>
+          <div className="brand-wrap">
+            <div className="brand-mark">V</div>
+            <div className="brand-copy">
+              <div className="brand">Visionary Studio</div>
+              <span>AI video generation</span>
+            </div>
+          </div>
           <div className="nav-links">
+            <a href={`${PUBLIC_BASE}#discover`}>Discover</a>
             <a href={`${PUBLIC_BASE}#workflow`}>Workflow</a>
             <a href={`${PUBLIC_BASE}#generator`}>Generator</a>
             <a href={`${PUBLIC_BASE}#library`}>Library</a>
@@ -84,34 +122,46 @@ function App() {
 
         <div className="hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">Creative video AI platform</p>
-            <h1>Upload a video, apply a prompt, generate polished variations.</h1>
+            <p className="eyebrow">Cinematic AI video platform</p>
+            <h1>Create campaign-ready videos with an Artlist-like visual feel.</h1>
             <p className="hero-text">
-              Designed with the premium visual feel of Artlist, but focused on agent orchestration,
-              variation generation, evaluation, and reward-driven learning.
+              Browse rich cinematic inspiration, upload your source footage, then generate polished
+              variations through one premium creative workflow.
             </p>
             <div className="hero-actions">
               <a className="primary-btn" href={`${PUBLIC_BASE}#generator`}>Start creating</a>
-              <a className="ghost-btn" href={`${PUBLIC_BASE}#workflow`}>See workflow</a>
+              <a className="ghost-btn" href={`${PUBLIC_BASE}#discover`}>Explore looks</a>
+            </div>
+            <div className="stat-row">
+              {cinematicStats.map((item) => (
+                <div key={item.label} className="stat-card">
+                  <strong>{item.value}</strong>
+                  <span>{item.label}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="hero-card">
-            <div className="status-pill">Seedance2.0 + FFmpeg + FastAPI</div>
-            <div className="preview-stack">
-              <div className="preview-card dark">
-                <span>Input</span>
-                <strong>Upload source clip</strong>
+          <div className="hero-visual">
+            <div className="hero-frame hero-frame-main">
+              <div className="frame-overlay">
+                <span className="frame-tag">Featured look</span>
+                <strong>Fashion campaign in amber light</strong>
+                <p>Prompt-led transformation, elegant motion, premium pacing.</p>
               </div>
-              <div className="preview-arrow">→</div>
-              <div className="preview-card accent">
-                <span>Router</span>
-                <strong>LLM orchestration</strong>
+            </div>
+            <div className="hero-side-stack">
+              <div className="hero-frame hero-frame-side top">
+                <div className="mini-meta">
+                  <span>Travel reel</span>
+                  <strong>Wide cinematic motion</strong>
+                </div>
               </div>
-              <div className="preview-arrow">→</div>
-              <div className="preview-card light">
-                <span>Output</span>
-                <strong>Final cut + memo</strong>
+              <div className="hero-frame hero-frame-side bottom">
+                <div className="mini-meta">
+                  <span>Editorial cut</span>
+                  <strong>Night city neon</strong>
+                </div>
               </div>
             </div>
           </div>
@@ -119,41 +169,53 @@ function App() {
       </header>
 
       <main>
-        <section className="feature-strip" id="workflow">
-          {featuredCollections.map((item) => (
-            <article className="feature-card" key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </article>
-          ))}
+        <section className="discover-section" id="discover">
+          <div className="section-heading split">
+            <div>
+              <p className="eyebrow">Discover</p>
+              <h2>Browse premium moods before you generate.</h2>
+            </div>
+            <p className="section-text">
+              Inspired by Artlist’s cinematic browsing experience, but tailored for prompt-based video
+              generation and creative iteration.
+            </p>
+          </div>
+          <div className="discover-grid">
+            {featuredCollections.map((item, index) => (
+              <article className={`discover-card card-${index + 1}`} key={item.title}>
+                <div className="discover-overlay">
+                  <span>{item.tag}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
 
-        <section className="workflow-panel">
+        <section className="workflow-panel" id="workflow">
           <div className="workflow-copy">
-            <p className="eyebrow">Pipeline</p>
-            <h2>Input to learning memo, in one production loop.</h2>
-            <ol>
-              <li>Input prompt and uploaded source video</li>
-              <li>LLM router selects generation or transformation strategy</li>
-              <li>Seedance2.0 and FFmpeg create candidate variations</li>
-              <li>AI + human evaluation score the results</li>
-              <li>Reward loop improves future outputs and writes a memo</li>
-            </ol>
+            <p className="eyebrow">Workflow</p>
+            <h2>From raw footage to final creative memo.</h2>
+            <p className="section-text">
+              Visionary Studio keeps the whole production loop together, from orchestration to quality
+              scoring to final export notes.
+            </p>
           </div>
-          <div className="workflow-visual">
-            <div>Input</div>
-            <div>Orchestration</div>
-            <div>Generation</div>
-            <div>Evaluation</div>
-            <div>Optimization</div>
-            <div>Output</div>
+          <div className="workflow-list">
+            {workflowStages.map((stage, index) => (
+              <div className="workflow-step" key={stage}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <p>{stage}</p>
+              </div>
+            ))}
           </div>
         </section>
 
         <section className="generator-section" id="generator">
           <div className="generator-card">
-            <p className="eyebrow">Generate variation</p>
-            <h2>Upload video</h2>
+            <p className="eyebrow">Generate</p>
+            <h2>Upload footage and direct the look.</h2>
             <form onSubmit={handleSubmit}>
               <label>
                 Video file
@@ -166,10 +228,7 @@ function App() {
               <label>
                 Style preset
                 <select value={style} onChange={(e) => setStyle(e.target.value)}>
-                  <option>Cinematic</option>
-                  <option>Editorial</option>
-                  <option>High Contrast</option>
-                  <option>Dreamscape</option>
+                  {styleOptions.map((option) => <option key={option}>{option}</option>)}
                 </select>
               </label>
               <button className="primary-btn full" type="submit" disabled={loading}>
@@ -180,8 +239,8 @@ function App() {
           </div>
 
           <div className="result-card">
-            <p className="eyebrow">Latest output</p>
-            <h2>Preview</h2>
+            <p className="eyebrow">Output</p>
+            <h2>Latest preview</h2>
             {result ? (
               <div className="result-grid">
                 <video controls src={result.original_url} />
@@ -196,20 +255,29 @@ function App() {
                 </div>
               </div>
             ) : (
-              <div className="placeholder-card">
-                Your generated variation will appear here with the original video, output preview, and processing notes.
+              <div className="placeholder-card cinematic-placeholder">
+                <div>
+                  <strong>Preview area</strong>
+                  <p>Your latest variation, source clip, and production notes will appear here.</p>
+                </div>
               </div>
             )}
           </div>
         </section>
 
         <section className="library-section" id="library">
-          <div className="section-heading">
-            <p className="eyebrow">Curated inspiration</p>
-            <h2>Artlist-style browsing for campaigns and mood boards</h2>
+          <div className="section-heading split">
+            <div>
+              <p className="eyebrow">Library</p>
+              <h2>Curated looks, references, and recent renders.</h2>
+            </div>
+            <p className="section-text">
+              Use the library like an inspiration browser, then jump straight into generation when a
+              visual direction clicks.
+            </p>
           </div>
           <div className="library-grid">
-            {library.map((item) => (
+            {libraryItems.map((item) => (
               <article className="library-card" key={item.id}>
                 <img src={item.original_url} alt={item.title} />
                 <div className="library-copy">
