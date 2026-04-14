@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
 const PUBLIC_BASE = import.meta.env.BASE_URL || '/';
 
+const apiUrl = (path) => `${API_BASE}${path}`;
+
 const featuredCollections = [
   {
     title: 'Agent orchestration',
@@ -28,7 +30,7 @@ function App() {
   const [library, setLibrary] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/videos`)
+    fetch(apiUrl('/api/videos'))
       .then((res) => res.json())
       .then(setLibrary)
       .catch(() => setLibrary([]));
@@ -50,7 +52,7 @@ function App() {
     formData.append('style', style);
 
     try {
-      const response = await fetch(`${API_BASE}/api/variations`, {
+      const response = await fetch(apiUrl('/api/variations'), {
         method: 'POST',
         body: formData,
       });

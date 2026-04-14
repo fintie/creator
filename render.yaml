@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: creator-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: ./render-start.sh
+    envVars:
+      - key: PUBLIC_BACKEND_URL
+        sync: false
+      - key: SEEDANCE_API_KEY
+        sync: false
+      - key: SEEDANCE_API_URL
+        sync: false
+
+  - type: web
+    name: creator-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: ./render-build.sh
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE
+        value: https://creator-backend.onrender.com
+
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
