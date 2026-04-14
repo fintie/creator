@@ -13,6 +13,7 @@ frontend/dist/
 # Env
 .env
 .env.*
+!frontend/.env.production
 backend/.env
 frontend/.env
 
