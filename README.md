@@ -5,6 +5,7 @@ Artlist-inspired AI video generation site with a React frontend and FastAPI back
 ## Stack
 
 - Frontend: React + Vite
+- Edge API: Cloudflare Worker proxy
 - Backend: FastAPI
 - Video tools: FFmpeg + Seedance2.0 API
 
@@ -47,3 +48,25 @@ Copy `backend/.env.example` to `backend/.env` and set:
 - `PUBLIC_BACKEND_URL`
 
 If the Seedance API is not configured, the backend falls back to a local FFmpeg preview transform, or returns the original file as a placeholder.
+
+## Cloudflare Worker
+
+The frontend production target is `https://creator.fintie.workers.dev`.
+This Worker should proxy these routes to the backend origin:
+
+- `GET /api/health`
+- `GET /api/videos`
+- `POST /api/variations`
+
+Deploy from `cloudflare-worker/`:
+
+```bash
+cd cloudflare-worker
+npm install
+npm run deploy
+```
+
+Set Worker vars in `wrangler.toml` or via Cloudflare dashboard:
+
+- `BACKEND_ORIGIN` (default `https://creator-backend.onrender.com`)
+- `ALLOWED_ORIGIN` (default `https://creator.nextgenius.com.au`)

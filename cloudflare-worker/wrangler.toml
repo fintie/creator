@@ -1,0 +1,8 @@
+name = "creator"
+main = "src/index.js"
+compatibility_date = "2026-04-19"
+workers_dev = true
+
+[vars]
+BACKEND_ORIGIN = "https://creator-backend.onrender.com"
+ALLOWED_ORIGIN = "https://creator.nextgenius.com.au"
